@@ -6,9 +6,12 @@ import java.util.concurrent.TimeUnit;
 public class Lab1 {
     public static void main(String[] args) {
         Lab1 lab1 = new Lab1();
-//        lab1.compulsory();
-//        lab1.homework(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
-        lab1.bonus();
+        switch(args.length) {
+            case 0: lab1.compulsory(); break;
+            case 1: lab1.bonus(Integer.parseInt(args[0])); break;
+            case 2: lab1.homework(Integer.parseInt(args[0]), Integer.parseInt(args[1])); break;
+            default: System.out.println("Invalid number of arguments");
+        }
     }
 
     void compulsory() {
@@ -240,16 +243,18 @@ public class Lab1 {
         return Clique(TransposedMatrix, n, k);
     }
 
-    void bonus() {
-        int n = (int)(Math.random() * 20);
+    void bonus(int n) {
         int k = (int)(Math.random() * n);
         boolean[][] AdjacencyMatrix = GenerateAdjacencyMatrix(n);
+
         printMatrix(AdjacencyMatrix, n);
         System.out.println("N = " + n + " | K = " + k);
+
         long startTime = System.currentTimeMillis();
         System.out.println("Does the graph have a clique of size ≥ " + k + " ? " + Clique(AdjacencyMatrix, n, k));
         long endTime = System.currentTimeMillis();
         System.out.println("Execution time: " + TimeUnit.MILLISECONDS.toSeconds(endTime - startTime) + " seconds");
+
         startTime = System.currentTimeMillis();
         System.out.println("Does the graph have a stable set of size ≥ " + k + " ? " + StableSet(AdjacencyMatrix, n, k));
         endTime = System.currentTimeMillis();
